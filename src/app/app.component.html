@@ -1,20 +1,53 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="road-scheme-container" #mainContainer
+  (mousemove)="moveInContainer($event)"
+  (click)="clickInContainer($event)"
+  [style.cursor]="this.svgPattern ? 'move' : 'default'">
+  <div class="library-container">
+    <app-singleroad (getSvgSource)="setSvgSource($event)"></app-singleroad>
+  </div>
+  <div class="editor-container">
+    <div class="editor-background">
+      <div class="x-ruler">
+        <canvas #xRuler height="20"></canvas>
+      </div>
+      <div class="y-ruler">
+        <canvas #yRuler width="20"></canvas>
+      </div>
+      <div class="editor" (wheel)="onMouseWheelInGrid($event)" #editorContainer (mousedown)="clickInGrid($event)"
+        (mouseleave)="moveElementOutOfGrid()" (mouseenter)="moveElementToGrid()">
+        <svg [attr.width]="getGridWidth()" [attr.height]="getGridHeight()">
+          <defs>
+            <pattern id="grid" [attr.width]="gridSquarePx" [attr.height]="gridSquarePx" patternUnits="userSpaceOnUse">
+              <path [attr.d]="calculateSmallGrid()"
+                fill="none"
+                stroke="#E0E0E0" opacity="0.5" stroke-width="1" />
+              <path [attr.d]="calculateBigGrid()" fill="none" stroke="#000000" stroke-width="1" />
+            </pattern>
+            <pattern id="roadLine" [attr.width]="gridSquarePx" [attr.height]="gridSquarePx">
+              <path [attr.d]="calculateRoadLine()" stroke="#000000" />
+              <path [attr.d]="calculateMiddleLine()" stroke="#FFFFFF" [attr.stroke-width]="gridSquarePx / 16"
+                [attr.stroke-dasharray]="gridSquarePx / 4" />
+            </pattern>
+          </defs>
+          <rect
+            width="100%"
+            height="100%"
+            fill="url(#grid)" />
+          <g #diagramContainer>
+            <rect *ngFor="let component of components"
+              [attr.x]="getCoord(component.x)"
+              [attr.y]="getCoord(component.y)"
+              [attr.width]="gridSquarePx"
+              [attr.height]="gridSquarePx"
+              [attr.fill]="'url(#' + component.fill + ')'"
+              (click)="test($event, component)">
+            </rect>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="properties-container">
+    <app-properties (propertyChange)="updateGrid($event)" #properties></app-properties>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-

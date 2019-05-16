@@ -1,0 +1,15 @@
+<ng-container *ngTemplateOutlet="diagramProperties"></ng-container>
+<ng-template #diagramProperties>
+  <div>
+    <div class="property-container">
+      <label class="property-label" for="roadLength">Road length (km):</label>
+      <input type="number" min="4" [value]="roadLength" (change)="valueChange($event)" id="roadLength">
+    </div>
+    <div class="property-container">
+      <label class="property-label" for="direction">Diagram direction:</label>
+      <select (change)="valueChange($event)" id="direction">
+        <option [value]="direction" *ngFor="let direction of directions">{{direction}}</option>
+      </select>
+    </div>
+  </div>
+</ng-template>

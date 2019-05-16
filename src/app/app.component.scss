@@ -1,0 +1,60 @@
+.road-scheme-container {
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.library-container {
+  width: 25%;
+  height: 50%;
+  margin: 20px;
+  border: 1px solid #000000;
+}
+.editor-container {
+  width: 50%;
+  height: 50%;
+  margin: 20px;
+  text-align: center;
+  position: relative;
+  border: 1px solid #000000;
+}
+.properties-container {
+  width: 25%;
+  height: 50%;
+  margin: 20px;
+  border: 1px solid #000000;
+}
+.x-ruler {
+  position: absolute;
+  height: 20px;
+  left: 20px;
+  z-index: 1;
+}
+.y-ruler {
+  position: absolute;
+  width: 20px;
+  top: 20px;
+  z-index: 1;
+}
+.editor-background {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  overflow: auto;
+  background-color: #EEEEEE;
+}
+.editor-grid {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+}
+.editor {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background-color: #FFFFFF;
+}
